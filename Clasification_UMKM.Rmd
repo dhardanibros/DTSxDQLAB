@@ -1,0 +1,972 @@
+---
+title: "Classicfication UMKM"
+author: "shella"
+date: '2022-04-02'
+output: html_document
+---
+
+####Usaha Mikro, Kecil, dan Menengah (UMKM) adalah aktivitas usaha yang dijalankan perorangan maupun suatu badan usaha milik perorangan. Jika dibandingkan dengan usaha besar, tentu UMKM ini memiliki perbedaan dari segi jumlah karyawan, jumlah kekayaan bersih pelaku usaha, serta omset pertahun.
+
+Di Indonesia, UMKM memiliki peran penting dalam perekonomian negara. Sebab, sektor UMKM adalah penyumbang Produk Domestik Bruto (PDB) terbesar, paling banyak menyerap lapangan kerja, dan bahkan relatif tahan terhadap krisis keuangan.
+
+Dengan perubahan teknologi yang kian maju, kini para pelaku UMKM dapat mengembangkan dan memajukan usahanya dengan bantuan machine learning. Melalui teknologi ini, pelaku UMKM bisa mendapatkan maupun menganalisis feedback dari pelanggan, forecasting pasar, dan sebagainya.
+
+Machine learning itu sendiri merupakan bagian dari Artificial Intelligence (kecerdasan buatan) dimana komputer diberi input sejumlah data berukuran besar dan kemudian diolah menggunakan algoritma. Algoritma ini yang nantinya akan menemukan pola dan membuat prediksi yang akurat berdasarkan data yang telah diinput, tanpa adanya campur tangan manusia. Lalu, kenapa UMKM membutuhkan machine learning ya? Yuk cari tahu jawabannya di bawah ini!
+
+Menciptakan Rekomendasi Produk
+
+Dalam praktiknya, salah satu cara memaksimalkan machine learning dalam mengembangkan bisnis adalah dengan memanfaatkan sistem rekomendasi machine learning. Melalui cara ini konsumen akan mudah menemukan barang-barang yang kemungkinan hendak dibeli, berdasarkan kebiasaan konsumen saat mencari produk.
+
+Dalam skala global, kita bisa melihat beberapa perusahaan besar yang sudah lebih dulu mengadopsi rekomendasi machine learning ini seperti Amazon dan Netflix. Sistem website Amazon telah menggunakan sistem rekomendasi machine learning untuk membantu konsumen. Dari berjuta-juta data konsumen, Amazon bisa memahami produk spesifik yang kemungkinan besar akan dibeli. Biasanya produk rekomendasi akan ada kolom 'produk serupa yang mungkin anda suka'. Tak jauh berbeda, Netflix juga menggunakan sistem machine learning ini guna merekomendasikan film yang mungkin disukai oleh konsumen.
+
+Kabar baiknya adalah sistem rekomendasi ini tidak hanya bisa digunakan oleh perusahaan besar, tetapi juga bisa dimanfaatkan oleh pelaku UMKM dengan memanfaatkan layanan digital dan pemasaran online. Selamat mencoba!
+
+Baca juga : Module Baru : Peran Pengolahan Data dalam Bidang UMKM
+
+Filtering Data & Meminimalisir Aksi Penipuan
+
+Dalam machine learning, algoritma klasifikasi dikenal dengan kemampuannya dalam mengelompokkan data. Data tersebut bisa berupa email masuk ke dalam kelompok email spam atau tidak dan mengelompokkan konten atau komentar yang diposting oleh user sesuai dengan usia, bertentangan dengan aturan platform, dan lain sebagainya.
+
+Bukan hanya mengelompokkan data, algoritma klasifikasi ini juga ampuh untuk meminimalisir aksi penipuan. Algoritma ini dapat mendeteksi suatu transaksi keuangan termasuk ke dalam transaksi palsu atau tidak. Algoritma ini akan menganalisis pola transaksi yang terjadi, jika ada indikasi transaksi yang tidak normal, maka sistem akan memblokir transaksi tersebut secara otomatis. Canggih bukan?
+
+Customer Service Online Otomatis
+
+Selain fungsi-fungsi di atas, machine learning masih punya kegunaan lainnya, yakni dapat digunakan UMKM untuk mengotomatiskan layanan konsumen secara online. Hal ini rupanya merupakan salah satu penerapan artificial intelligence umum dalam bisnis. Sebagai contoh chatbot yang biasa kamu jumpai saat melakukan chatting dengan berbagai akun online shop. Dengan adanya customer service online, maka biaya untuk layanan konsumen lebih hemat biaya dan dapat dialokasikan untuk kegiatan lain. Chatbot ini dapat diintegrasikan ke email maupun nomor telepon konsumen.
+
+Baca juga : Belajar Data Science DQLab : Solusi Praktis Belajar #DiRumahAja
+
+Belajar Data Science untuk Mulai Mengoperasikan Machine Learning
+
+Tak heran jika kini banyak orang yang mulai tertarik untuk bisa memaksimalkan pemanfaatan machine learning. Dengan memahami dan mengoperasikannya, tentu ini bisa menguntungkan bagi kamu yang melakoni peran sebagai pelaku UMKM. Salah satu cara yang bisa kamu lakukan untuk bisa mengoperasikan machine learning adalah dengan mempelajari data science.
+
+Dalam dunia data science, machine learning sudah jadi makanan sehari-hari. Oleh sebab itu, jika kamu memulainya dengan belajar data science, kamu pun juga akan bisa lebih dekat dengan machine learning. Bersama DQLab kamu bisa kok untuk mulai belajar data science secara praktis. Kursus online yang ditawarkan DQLab memungkinkan kamu untuk bisa belajar kapan saja dan dimanapun. Yuk, mulai sekarang!
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Pengantar
+
+Perusahaan Alembert merupakan perusahaan yang bergerak di bidang layanan pinjaman usaha bagi sektor UMKM. Karena adanya pandemik ini, perusahaan berusaha memberikan pelayanan berupa keringanan pinjaman bagi pelanggan yang disebut sebagai rekomendasi tindak lanjut. Pemberian rekomendasi tindak lanjut pada pelanggan ini didasari pada kriteria tertentu, dan perlu ditentukan faktor-faktor apa saja yang berpengaruh sehingga pelanggan mendapatkan treatment tertentu yang masuk dalam rekomendasi tindak lanjut program dari perusahaan.
+
+Tujuan Project: Klasifikasi nasabah yang akan dimasukkan pada rekomendasi tindak lanjut. Pada kelas target rekomendasi tindak lanjut ini sendiri terdiri dari beberapa kelas seperti restrukturisasi dan angsuran biasa. Model: Regresi multinomial. Referensi model (Ref): Kelas pada rekomendasi tindak lanjut yang memiliki banyak pelanggan. Data: data yang digunakan terdiri dari 1000 baris.
+
+Tujuan Pembelajaran dari Project ini:
+
+Memahami dasar-dasar sintak R untuk keperluan statistika dasar dan dasar-dasar machine learning.
+
+Memberikan gambaran secara umum pemodelan dengan menggunakan R.
+
+Membaca Data External Sebelum dilakukannya pembacaan data, ada baiknya untuk mempersiapkan library apa saja yang akan digunakan untuk mengerjakan project pengklasifikasian rekomendasi tindak lanjut bagi pelanggan ini.
+
+Asumsi : Ho : Variabel tidak memiliki correlation
+H1 : Variable memiliki correlation
+
+Adapun library yang perlu dipersiapkan adalah:
+
+```{r}
+library(ggplot2)
+library(RColorBrewer) 
+
+#RColorBrewer is an R Programming Language package library that offers a variety of color palettes to use while making different types of plots. Colors impact the way we visualize data.
+```
+
+Run : ctrl+alt+enter
+membuat code baru : ctrl+alt+i
+
+```{r}
+data = read.csv("https://storage.googleapis.com/dqlab-dataset/project.csv")
+```
+
+
+
+```{r}
+data
+```
+
+```{r}
+data
+
+```
+
+
+Inspeksi data
+
+Setelah data berhasil di import, cobalah untuk menginspeksi dataset dengan jalan
+
+1.  Melihat 6 baris pertama data tersebut, apa saja yang ditunjukkannya dan
+2.  Tampilkan tipe data dari setiap kolom.
+
+```{r}
+# Enam baris teratas data
+head(data)
+tail(data)
+```
+
+```{r}
+# Tampilkan tipe data setiap kolomnya
+str(data)
+```
+
+Statistik Descriptive ##Melalui R kita dapat menampilkan statistik deskriptif pada data yang dimiliki. Jika diinginkan lebih spesifik maka dapat dilakukan pada kolom tertentu pada tabel data yang kita punya. Tentunya kita dapat menggunakan accessor \$ untuk memilih kolom yang diinginkan dari data.
+
+##summary(data\$OSL)
+
+```{r}
+summary(data)
+```
+
+Menghapus kolom
+
+Pada data, sebenarnya tidak memerlukan nama pelanggan untuk diberikan rekomendasi. Atau dengan kata lain penanda pelanggan untuk diberikan rekomendasi cukup dengan melihat no_kontrak pelanggan itu saja.
+
+```{r}
+data
+```
+
+```{r}
+data_reduce = data[-c(1,2)]
+colnames(data_reduce)
+```
+
+Konversi data Seperti yang diketahui ketika data ditarik dari suatu sumber terkadang ada kondisi tipe data tidak dengan tepat direpresentasikan. Misalkan semua record/baris pada suatu kolom berisi seharusnya data numerik akan tetapi disajikan didalam suatu karakter angka.
+
+R sendiri memiliki fungsi sapply yang dapat digunakan untuk mengkoversi tipe data. Dalam hal ini fungsi sapply menerima input/argumen fungsi berupa list, vector, atau data frame dan mengembalikan/menghasilkan output berupa vector atau matrix.
+
+
+Cobalah untuk meninjau kembali kolom "PRODUK", "PYD", "TENOR", dan "OSL" apakah perlu dikonversikan menjadi bertipe numerik atau tidak.
+```{r}
+data
+```
+
+
+```{r}
+FALSE
+```
+
+Jika tidak perlu di konversi, tidak perlu diubah
+
+Tetapi, jika perlu dirubah kolom "PRODUK", "PYD", "TENOR", dan "OSL" maka perintahnya berikut:
+
+```{r}
+#data_reduce[, 8:11] = sapply(data_reduce[, 8:11], as.numeric)
+#The sapply function in R is a vectorized function of the apply family that allows you to iterate over a list or vector without the need of using the for loop, that is known to be slow in R
+```
+
+##Pemilihan data kategori
+
+```{r}
+data
+#Kira kira mana kategori yg baik dan cocok
+```
+
+Data kategori dapat dipilih melalui kolom-kolom "KONDISI_USAHA", "KONDISI_JAMINAN", "REKOMENDASI_TINDAK_LANJUT".
+
+
+Melakukan pengecekan apakah tipe data sudah sesuai atau belum
+```{r}
+str(data)
+data
+```
+
+
+Ubah kolom "REKOMENDASI_TINDAK_LANJUT" sebagai faktor (gunakan as.factor).
+
+```{r}
+#convert data to katgori
+data_kategorik = data_reduce[, c("KONDISI_USAHA","KONDISI_JAMINAN","REKOMENDASI_TINDAK_LANJUT")]
+
+#memilih dari beberapa data untuk masik ke variable data kategorik
+
+data_reduce$REKOMENDASI_TINDAK_LANJUT = as.factor(data_reduce$REKOMENDASI_TINDAK_LANJUT) #convert rekomendasi tidak lanjut dari vchar ke factor
+
+```
+
+```{r}
+data_reduce
+```
+
+Apa Metode Chi Square?
+
+
+
+Gunakan uji chi-square dapat digunakan untuk melihat hubungan antar variabel kategorik berikut:
+
+
+**Chi Square adalah salah satu jenis uji komparatif non parametris yang dilakukan pada dua variabel, di mana skala data kedua variabel adalah nominal.**
+
+"KONDISI_USAHA" dengan "REKOMENDASI_TINDAK_LANJUT", dan "KONDISI_JAMINAN" dengan "REKOMENDASI_TINDAK_LANJUT" berikut:
+
+```{r}
+chisq.test(data_kategorik$KONDISI_JAMINAN, data_kategorik$REKOMENDASI_TINDAK_LANJUT)
+```
+**perhatikan p value**
+
+p value < alpha, artinya ada hubungan dari beberapa variable terhadap rekomendasi tindak lanjut
+
+
+```{r}
+chisq.test(data_kategorik$KONDISI_USAHA, data_kategorik$REKOMENDASI_TINDAK_LANJUT)
+```
+
+##\> Nilai p-value dari variable yang masuk ke dalam model biasanya berhubungan dengan r-squared yang dihasilkan. Secara umum, jika r-squared yang dihasilkan tinggi maka variabel prediktornya signifikan.
+
+#R package corrplot provides a visual exploratory tool on correlation matrix that supports automatic variable reordering to help detect hidden patterns among variables
+
+p value \< alpha tolak ho p values \> alpha setuju ho
+
+#Kondisi usaha tidak bisa menentukan
+
+```{r}
+chisq.test(data_kategorik$KONDISI_JAMINAN, data_kategorik$REKOMENDASI_TINDAK_LANJUT)
+```
+
+##Berdasarkan uji chi-square diatas dapat disimpulkan bahwa variabel kondisi usaha memiliki hubungan dengan variabel rekomendasi tindak lanjut karena p-value \< 0,05(5%). Kondisi jaminan juga memiliki hubungan dengan variabel rekomendasi tindak lanjut karena p-value \< 0,05(5%
+
+##Korelasi antar variabel data Selain melihat hubungan pada data yang bersifat kategorikal, kita juga bisa melihat hubungan antar variabel numerikal. Ya. Kita akan menggunakan korelasi.
+
+##Korelasi Pearson merupakan salah satu ukuran korelasi yang digunakan untuk mengukur kekuatan dan arah hubungan linier dari dua veriabel. Dua variabel dikatakan berkorelasi apabila perubahan salah satu variabel disertai dengan perubahan variabel lainnya, baik dalam arah yang sama ataupun arah yang sebaliknya. Harus diingat bahwa nilai koefisien korelasi yang kecil (tidak signifikan) bukan berarti kedua variabel tersebut tidak saling berhubungan. Mungkin saja dua variabel mempunyai keeratan hubungan yang kuat namun nilai koefisien korelasinya mendekati nol, misalnya pada kasus hubungan non linier. Dengan demikian, koefisien korelasi hanya mengukur kekuatan hubungan linier dan tidak pada hubungan non linier. Harus diingat pula bahwa adanya hubungan linier yang kuat di antara variabel tidak selalu berarti ada hubungan kausalitas, sebab-akibat.
+
+```{r}
+#pearson : The Pearson correlation method is the most common method to use for numerical variables; it assigns a value between − 1 and 1, where 0 is no correlation, 1 is total positive correlation, and − 1 is total negative correlation. 
+
+#This is interpreted as follows: a correlation value of 0.7 between two variables would indicate that a significant and positive relationship exists between the two. A positive correlation signifies that if variable A goes up, then B will also go up, whereas if the value of the correlation is negative, then if A increases, B decreases.
+
+library(corrplot)
+
+
+## 4 figures arranged in 2 rows and 2 columns
+
+#Setting defenition M
+
+M = data_reduce[, 8:11]
+
+
+#With the par( ) function, you can include the option mfrow=c(nrows, ncols) to create a matrix of nrows x ncols plots that are filled in by row. mfcol=c(nrows, ncols) fills in the matrix by columns.
+# Library corrplot
+
+par(mfrow=c(2,2))
+
+## Create a 2 x 2 plotting matrix
+
+# Cor : The correlation matrix to visualize. To visualize a general matrix
+
+#The visualization method : “circle”, “color”, “number”, elipse,
+
+#There are three types of layout :
+
+#“full” (default) : display full correlation matrix
+
+#“upper”: display upper triangular of the correlation matrix
+
+#“lower”: display lower triangular of the correlation matrix
+
+#explore : http://www.sthda.com/english/wiki/visualize-correlation-matrix-using-correlogram
+
+
+corrplot(cor(M), type="upper",order="hclust")
+corrplot(cor(M), method="square",type="upper")
+corrplot(cor(M), method="number",type="lower")
+corrplot(cor(M), method="ellipse")
+
+
+#R package corrplot provides a visual exploratory tool on correlation matrix that supports automatic variable reordering to help detect hidden patterns among variables
+#pearson
+```
+
+##Korelasi Kendall Tau merupakan statistik nonparametrik dengan skala pengukuran data sekurang-kurangnya data ordinal. Korelasi kendall tau digunakan untuk mengukur tingkat kesesuaian yakni apakah ada perbedaan tingkat kesesuain ranking antara 2 variabel yang diamati.
+
+```{r}
+# Kendall correlation
+par(mfrow=c(2,2))
+corrplot(cor(M, method="kendall"), type="upper",order="hclust")
+corrplot(cor(M, method="kendall"), method="square",type="upper")
+corrplot(cor(M, method="kendall"), method="number",type="lower")
+corrplot(cor(M, method="kendall"), method="ellipse")
+```
+
+##library ggcorrplot
+
+```{r}
+#' Visualization of a correlation matrix using ggplot2
+#' @import ggplot2
+#' @description \itemize{ \item ggcorrplot(): A graphical display of a
+#'   correlation matrix using ggplot2. \item cor_pmat(): Compute a correlation
+#'   matrix p-values. }
+#' @param corr the correlation matrix to visualize
+#' @param method character, the visualization method of correlation matrix to be
+#'   used. Allowed values are "square" (default), "circle".
+#' @param type character, "full" (default), "lower" or "upper" display.
+#' @param ggtheme ggplot2 function or theme object. Default value is
+#'   `theme_minimal`. Allowed values are the official ggplot2 themes including
+#'   theme_gray, theme_bw, theme_minimal, theme_classic, theme_void, .... Theme
+#'   objects are also allowed (e.g., `theme_classic()`).
+#' @param title character, title of the graph.
+#' @param show.legend logical, if TRUE the legend is displayed.
+#' @param legend.title a character string for the legend title. lower
+#'   triangular, upper triangular or full matrix.
+#' @param show.diag logical, whether display the correlation coefficients on the
+#'   principal diagonal.
+#' @param colors a vector of 3 colors for low, mid and high correlation values.
+#' @param outline.color the outline color of square or circle. Default value is
+#'   "gray".
+#' @param hc.order logical value. If TRUE, correlation matrix will be hc.ordered
+#'   using hclust function.
+#' @param hc.method the agglomeration method to be used in hclust (see ?hclust).
+#' @param lab logical value. If TRUE, add correlation coefficient on the plot.
+#' @param lab_col,lab_size size and color to be used for the correlation
+#'   coefficient labels. used when lab = TRUE.
+#' @param p.mat matrix of p-value. If NULL, arguments sig.level, insig, pch,
+#'   pch.col, pch.cex is invalid.
+#' @param sig.level significant level, if the p-value in p-mat is bigger than
+#'   sig.level, then the corresponding correlation coefficient is regarded as
+#'   insignificant.
+#' @param insig character, specialized insignificant correlation coefficients,
+#'   "pch" (default), "blank". If "blank", wipe away the corresponding glyphs;
+#'   if "pch", add characters (see pch for details) on corresponding glyphs.
+#' @param pch add character on the glyphs of insignificant correlation
+#'   coefficients (only valid when insig is "pch"). Default value is 4.
+#' @param pch.col,pch.cex the color and the cex (size) of pch (only valid when
+#'   insig is "pch").
+#' @param tl.cex,tl.col,tl.srt the size, the color and the string rotation of
+#'   text label (variable names).
+#' @param digits Decides the number of decimal digits to be displayed (Default:
+#'   `2`).
+#' @return
+#' \itemize{
+#'  \item ggcorrplot(): Returns a ggplot2
+#'  \item cor_pmat(): Returns a matrix containing the p-values of correlations
+#'  }
+#' @examples
+#' # Compute a correlation matrix
+#' data(mtcars)
+#' corr <- round(cor(mtcars), 1)
+#' corr
+#'
+#' # Compute a matrix of correlation p-values
+#' p.mat <- cor_pmat(mtcars)
+#' p.mat
+#'
+#' # Visualize the correlation matrix
+#' # --------------------------------
+#' # method = "square" or "circle"
+#' ggcorrplot(corr)
+#' ggcorrplot(corr, method = "circle")
+#'
+#' # Reordering the correlation matrix
+#' # --------------------------------
+#' # using hierarchical clustering
+#' ggcorrplot(corr, hc.order = TRUE, outline.color = "white")
+#'
+#' # Types of correlogram layout
+#' # --------------------------------
+#' # Get the lower triangle
+#' ggcorrplot(corr,
+#'   hc.order = TRUE, type = "lower",
+#'   outline.color = "white"
+#' )
+#' # Get the upeper triangle
+#' ggcorrplot(corr,
+#'   hc.order = TRUE, type = "upper",
+#'   outline.color = "white"
+#' )
+#'
+#' # Change colors and theme
+#' # --------------------------------
+#' # Argument colors
+#' ggcorrplot(corr,
+#'   hc.order = TRUE, type = "lower",
+#'   outline.color = "white",
+#'   ggtheme = ggplot2::theme_gray,
+#'   colors = c("#6D9EC1", "white", "#E46726")
+#' )
+#'
+#' # Add correlation coefficients
+#' # --------------------------------
+#' # argument lab = TRUE
+#' ggcorrplot(corr,
+#'   hc.order = TRUE, type = "lower",
+#'   lab = TRUE,
+#'   ggtheme = ggplot2::theme_dark(),
+#' )
+#'
+#' # Add correlation significance level
+#' # --------------------------------
+#' # Argument p.mat
+#' # Barring the no significant coefficient
+#' ggcorrplot(corr,
+#'   hc.order = TRUE,
+#'   type = "lower", p.mat = p.mat
+#' )
+#' # Leave blank on no significant coefficient
+#' ggcorrplot(corr,
+#'   p.mat = p.mat, hc.order = TRUE,
+#'   type = "lower", insig = "blank"
+#' )
+#'
+#' # Changing number of digits for correlation coeffcient
+#' # --------------------------------
+#' ggcorrplot(cor(mtcars),
+#'   type = "lower",
+#'   insig = "blank",
+#'   lab = TRUE,
+#'   digits = 3
+#' )
+#' @name ggcorrplot
+#' @rdname ggcorrplot
+#' @export
+
+# function body
+ggcorrplot <- function(corr,
+                       method = c("square", "circle"),
+                       type = c("full", "lower", "upper"),
+                       ggtheme = ggplot2::theme_minimal,
+                       title = "",
+                       show.legend = TRUE,
+                       legend.title = "Corr",
+                       show.diag = FALSE,
+                       colors = c("blue", "white", "red"),
+                       outline.color = "gray",
+                       hc.order = FALSE,
+                       hc.method = "complete",
+                       lab = FALSE,
+                       lab_col = "black",
+                       lab_size = 4,
+                       p.mat = NULL,
+                       sig.level = 0.05,
+                       insig = c("pch", "blank"),
+                       pch = 4,
+                       pch.col = "black",
+                       pch.cex = 5,
+                       tl.cex = 12,
+                       tl.col = "black",
+                       tl.srt = 45,
+                       digits = 2) {
+  type <- match.arg(type)
+  method <- match.arg(method)
+  insig <- match.arg(insig)
+
+  if(inherits(corr, "cor_mat")){
+    # cor_mat object from rstatix
+    cor.mat <- corr
+    corr <- .tibble_to_matrix(cor.mat)
+    p.mat <- .tibble_to_matrix(attr(cor.mat, "pvalue"))
+  }
+
+  if (!is.matrix(corr) & !is.data.frame(corr)) {
+    stop("Need a matrix or data frame!")
+  }
+  corr <- as.matrix(corr)
+
+  corr <- base::round(x = corr, digits = digits)
+
+  if (hc.order) {
+    ord <- .hc_cormat_order(corr)
+    corr <- corr[ord, ord]
+    if (!is.null(p.mat)) {
+      p.mat <- p.mat[ord, ord]
+      p.mat <- base::round(x = p.mat, digits = digits)
+    }
+  }
+
+  # Get lower or upper triangle
+  if (type == "lower") {
+    corr <- .get_lower_tri(corr, show.diag)
+    p.mat <- .get_lower_tri(p.mat, show.diag)
+  }
+  else if (type == "upper") {
+    corr <- .get_upper_tri(corr, show.diag)
+    p.mat <- .get_upper_tri(p.mat, show.diag)
+  }
+
+  # Melt corr and pmat
+  corr <- reshape2::melt(corr, na.rm = TRUE)
+  colnames(corr) <- c("Var1", "Var2", "value")
+  corr$pvalue <- rep(NA, nrow(corr))
+  corr$signif <- rep(NA, nrow(corr))
+
+  if (!is.null(p.mat)) {
+    p.mat <- reshape2::melt(p.mat, na.rm = TRUE)
+    corr$coef <- corr$value
+    corr$pvalue <- p.mat$value
+    corr$signif <- as.numeric(p.mat$value <= sig.level)
+    p.mat <- subset(p.mat, p.mat$value > sig.level)
+    if (insig == "blank") {
+      corr$value <- corr$value * corr$signif
+    }
+  }
+
+
+  corr$abs_corr <- abs(corr$value) * 10
+
+  # heatmap
+  p <-
+    ggplot2::ggplot(
+      data = corr,
+      mapping = ggplot2::aes_string(x = "Var1", y = "Var2", fill = "value")
+    )
+
+  # modification based on method
+  if (method == "square") {
+    p <- p +
+      ggplot2::geom_tile(color = outline.color)
+  } else if (method == "circle") {
+    p <- p +
+      ggplot2::geom_point(
+        color = outline.color,
+        shape = 21,
+        ggplot2::aes_string(size = "abs_corr")
+      ) +
+      ggplot2::scale_size(range = c(4, 10)) +
+      ggplot2::guides(size = FALSE)
+  }
+
+  # adding colors
+  p <-
+    p + ggplot2::scale_fill_gradient2(
+      low = colors[1],
+      high = colors[3],
+      mid = colors[2],
+      midpoint = 0,
+      limit = c(-1, 1),
+      space = "Lab",
+      name = legend.title
+    )
+
+  # depending on the class of the object, add the specified theme
+  if (class(ggtheme)[[1]] == "function") {
+    p <- p + ggtheme()
+  } else if (class(ggtheme)[[1]] == "theme") {
+    p <- p + ggtheme
+  }
+
+
+  p <- p +
+    ggplot2::theme(
+      axis.text.x = ggplot2::element_text(
+        angle = tl.srt,
+        vjust = 1,
+        size = tl.cex,
+        hjust = 1
+      ),
+      axis.text.y = ggplot2::element_text(size = tl.cex)
+    ) +
+    ggplot2::coord_fixed()
+
+  label <- round(x = corr[, "value"], digits = digits)
+  if(!is.null(p.mat) & insig == "blank"){
+    ns <- corr$pvalue > sig.level
+    if(sum(ns) > 0) label[ns] <- " "
+  }
+
+  # matrix cell labels
+  if (lab) {
+    p <- p +
+      ggplot2::geom_text(
+        mapping = ggplot2::aes_string(x = "Var1", y = "Var2"),
+        label = label,
+        color = lab_col,
+        size = lab_size
+      )
+  }
+
+  # matrix cell glyphs
+  if (!is.null(p.mat) & insig == "pch") {
+    p <- p + ggplot2::geom_point(
+      data = p.mat,
+      mapping = ggplot2::aes_string(x = "Var1", y = "Var2"),
+      shape = pch,
+      size = pch.cex,
+      color = pch.col
+    )
+  }
+
+  # add titles
+  if (title != "") {
+    p <- p +
+      ggplot2::ggtitle(title)
+  }
+
+  # removing legend
+  if (!show.legend) {
+    p <- p +
+      ggplot2::theme(legend.position = "none")
+  }
+
+  # removing panel
+  p <- p +
+    .no_panel()
+  p
+}
+
+
+
+#' Compute the matrix of correlation p-values
+#'
+#' @param x numeric matrix or data frame
+#' @param ... other arguments to be passed to the function cor.test.
+#' @rdname ggcorrplot
+#' @export
+
+cor_pmat <- function(x, ...) {
+
+  # initializing values
+  mat <- as.matrix(x)
+  n <- ncol(mat)
+  p.mat <- matrix(NA, n, n)
+  diag(p.mat) <- 0
+
+  # creating the p-value matrix
+  for (i in 1:(n - 1)) {
+    for (j in (i + 1):n) {
+      tmp <- stats::cor.test(mat[, i], mat[, j], ...)
+      p.mat[i, j] <- p.mat[j, i] <- tmp$p.value
+    }
+  }
+
+  # name rows and columns of the p-value matrix
+  colnames(p.mat) <- rownames(p.mat) <- colnames(mat)
+
+  # return the final matrix
+  p.mat
+}
+
+
+
+#+++++++++++++++++++++++
+# Helper Functions
+#+++++++++++++++++++++++
+
+# Get lower triangle of the correlation matrix
+.get_lower_tri <- function(cormat, show.diag = FALSE) {
+  if (is.null(cormat)) {
+    return(cormat)
+  }
+  cormat[upper.tri(cormat)] <- NA
+  if (!show.diag) {
+    diag(cormat) <- NA
+  }
+  return(cormat)
+}
+
+# Get upper triangle of the correlation matrix
+.get_upper_tri <- function(cormat, show.diag = FALSE) {
+  if (is.null(cormat)) {
+    return(cormat)
+  }
+  cormat[lower.tri(cormat)] <- NA
+  if (!show.diag) {
+    diag(cormat) <- NA
+  }
+  return(cormat)
+}
+
+# hc.order correlation matrix
+.hc_cormat_order <- function(cormat, hc.method = "complete") {
+  dd <- stats::as.dist((1 - cormat) / 2)
+  hc <- stats::hclust(dd, method = hc.method)
+  hc$order
+}
+
+.no_panel <- function() {
+  ggplot2::theme(
+    axis.title.x = ggplot2::element_blank(),
+    axis.title.y = ggplot2::element_blank()
+  )
+}
+
+
+# Convert a tbl to matrix
+.tibble_to_matrix <- function(x){
+  x <-  as.data.frame(x)
+  rownames(x) <- x[, 1]
+  x <- x[, -1]
+  as.matrix(x)
+}
+```
+
+
+```{r}
+# Library ggcorrplot
+corr = round(cor(M), 1) 
+# Pearson correlation
+ggcorrplot(round(cor(M), 1), 
+           #M = variabel yang sudah di definisikan
+           #`1 adalah 1 angka dibelakang koma
+          hc.order = TRUE, 
+          #logical value. If TRUE, correlation matrix will be hc.ordered using hclust function.
+          type = "lower",
+          #character character, "full" (default), "lower" or "upper" display.
+          lab = TRUE, 
+          #logical value. If TRUE, add correlation coefficient on the plot.
+          lab_size = 3, 
+          #size  to be used for the correlation coefficient labels.
+          method = "circle",
+          #The visualization method : “circle”, “color”, “number”, etc.
+          colors = c("tomato2","white","springgreen3"),
+          title = "Correlogram of Data Nasabah",
+          ggtheme = theme_bw)
+
+
+#ggplot2 function or theme object. Default value is `theme_minimal`. Allowed values are the official ggplot2 themes including theme_gray, theme_bw, theme_minimal, theme_classic, theme_void, .... Theme objects are also allowed (e.g., `theme_classic()`).
+
+
+
+#Source : https://www.rdocumentation.org/packages/ggcorrplot/versions/0.1.3/topics/ggcorrplot
+```
+
+yang digunakan untuk melihat korelasi adalah dengan metode korelasi pearson dan korelasi kendall. Jika nilai korelasinya bernilai positif maka korelasi antar variabel tersebut berkorelasi kuat.
+
+##Pemilihan fitur/independent variabel/input Dalam melakukan pemodelan tentu kita perlu meninjau variabel-variabel apa saja yang berpengaruh pada model kita, khususnya pada klasifikasi. Pada kesempatan ini kita menggunakan model Regresi Multinomial.
+
+Lalu bagaimana menentukan variabel apa saja yang berpengaruh tersebut?
+
+Ada banyak alternatif, salah satunya ialah Information Gain. #pecifically, you learned: Information gain is the reduction in entropy or surprise by transforming a dataset and is often used in training decision trees. Information gain is calculated by comparing the entropy of the dataset before and after a transformation.
+
+#Information gain helps to determine the order of attribute
+
+```{r}
+colnames(data_reduce)
+
+```
+Ada banyak alternatif, salah satunya ialah Information Gain. Melalui information gain diambil nilai importance variabel yang lebih dari 0.02 (kamu dapat eksplorasi apa yang terjadi apabila kita mengambil nilai yang kurang dari 0.02).
+
+
+               attr_importance
+KONDISI_JAMINAN     0.038889946
+STATUS              0.109539204
+KEWAJIBAN           0.002414449
+OSL                 0.006693011
+KOLEKTIBILITAS      0.084934084
+
+```{r}
+data_select = data_reduce[, c("KARAKTER","KONDISI_USAHA","KONDISI_JAMINAN","STATUS","KEWAJIBAN","OSL","KOLEKTIBILITAS","REKOMENDASI_TINDAK_LANJUT")]
+
+data_non_na = na.omit(data_select) 
+#na.omit: Handle Missing Values in Objects
+```
+
+
+
+```{r}
+data_non_na
+```
+```{r}
+data
+```
+
+```{r}
+data
+```
+
+
+##Transformasi data
+
+Untuk memberikan performa model yang baik, maka pada data kita perlu dilakukan treatment tertentu, misalnya dilakukan scalling atau dilakukan pengelompokan data atau disebut juga bucketing.
+
+#Feature Scaling adalah suatu cara untuk membuat numerical data pada dataset memiliki rentang nilai (scale) yang sama. Tidak ada lagi satu variabel data yang mendominasi variabel data lainnya. (Source : <https://medium.com/machine-learning-id/melakukan-feature-scaling-pada-dataset-229531bb08de>)
+
+```{r}
+data_select_new = data_select
+data_select_new$KEWAJIBAN = scale(data_select_new$KEWAJIBAN)[, 1] 
+
+#Scale() Function in R, Scaling is a technique for comparing data that isn’t measured in the same way. The normalizing of a dataset using the mean value and standard deviation is known as scaling.
+
+data_select_new$OSL = scale(data_select_new$OSL)[, 1]
+data_select_new$KEWAJIBAN = cut(data_select_new$KEWAJIBAN, breaks = c(-0.354107,5,15,30)) 
+
+#The cut function in R allows you to cut data into bins and specify ‘cut labels’, so it is very useful to create a factor from a continuous variable.
+
+data_select_new$KEWAJIBAN = as.factor(data_select_new$KEWAJIBAN)
+data_select_new$OSL = cut(data_select_new$OSL, breaks= c(-0.60383,3,10,15)) 
+
+#Number or vector of breaks
+data_select_new$OSL = as.factor(data_select_new$OSL)
+data_select_new = na.omit(data_select_new)
+```
+
+```{r}
+data
+```
+
+
+```{r}
+data_select_new$OSL
+```
+
+```{r}
+data_select_new$KEWAJIBAN
+```
+
+##Training data Sebelum masuk pada pemodelan, kita perlu memisahkan data kita menjadi training dan testing (ada pula yang membaginya menjadi training, testing, dan validasi).
+
+Tujuan dari pemisahan data ini ialah untuk melihat kemampuan model kita untuk melakukan prediksi sebagaimana tujuan dari pemodelan kita.
+
+```{r}
+library(caret)
+
+index = createDataPartition(data_select_new$REKOMENDASI_TINDAK_LANJUT, p= .95, list = FALSE)
+
+#use 95 percentile of data
+train = data_select_new[index,]
+test = data_select_new[-index,]
+```
+
+```{r}
+train
+```
+
+```{r}
+test
+```
+
+
+
+```{r}
+test
+```
+
+##Pemodelan/Modelling data Sekarang kita siap untuk masuk pada pemodelan.
+
+Ingat bahwa kita menggunakan Model Regresi Multinomial, dimana kita perlu menentukan referensi dari kelas target.
+
+Referensi kelas target ini ialah kelas yang memiliki jumlah anggota terbanyak.
+
+Untuk keperluan tertentu, kita perlu mengetahui peluang dari tiap baris data (perwakilan dari pelanggan) untuk masuk pada kelas target tertentu.
+
+Tujuannya ialah untuk melihat seberapa pengaruh model untuk melakukan klasifikasi. Selain itu bisa juga dari sudut pandang bisnis, dalam kasus real penentuan threshold pada nilai peluang juga dikaitkan dengan beberapa faktor, misalnya revenue pelanggan.
+
+Untuk melihat nilai peluang bahwa suatu pelanggan masuk pada kelas target tertentu lakukanlah sintak berikut:
+
+```{r}
+train2 = train
+
+# Setting the reference
+train2$REKOMENDASI_TINDAK_LANJUT =relevel(train2$REKOMENDASI_TINDAK_LANJUT, ref = "Angsuran Biasa") 
+
+#One way to change the level order is to use factor() on the factor and specify the order directly. In this example, the function ordered() could be used instead of factor() . Another way to change the order is to use relevel() to make a particular level first in the list.
+# training model
+require(nnet)
+#A nnet object with additional components:
+
+#multinom calls nnet. The variables on the rhs of the formula should be roughly scaled to [0,1] or
+#the fit will be slow or may not converge at all.
+
+```
+
+```{r}
+train2
+```
+
+```{r}
+# training the multinomial mode
+#Fit Multinomial Log-linear Models
+
+multinom_model = multinom(REKOMENDASI_TINDAK_LANJUT ~ ., data=train2)
+
+#The multinom function accepts a model formula where the outcome is a vector with a factor representing the response categories, or a matrix with the counts in the various categories, which is the case for us. This is a direct generalization of the way logit models work in R.
+```
+
+```{r}
+#Misalkan kamu diberikan vektor A = c(3,6,9,12) dan B = c(4,6,7,8).
+
+#Pilihlah kode di bawah ini untuk menunjukkan entry yang ada pada vektor A tidak terdapat pada vektor B.
+
+#unique(A,B)
+#diff(A,B)
+#setdiff(A,B)
+
+```
+
+#The unique() function in R is used to eliminate or delete the duplicate values or the rows present in the vector, data frame, or matrix as well. #diff() function in R Language is used to find the difference between each consecutive pair of elements of a vector #setdiff() function in R Programming Language is used to find the elements which are in the first Object but not in the second Object.
+
+```{r}
+multinom_model
+```
+
+#The intercept (sometimes called the "constant") in a regression model represents the mean value of the response variable when all of the predictor variables in the model are equal to zero.
+
+#Deviance residuals #The residual deviance tells us how well the response variable can be predicted by a model with p predictor variables. The lower the value, the better the model is able to predict the value of the response variable
+
+We already know residuals from the lm function. But what are deviance residuals? In ordinary least-squares, the residual associated with the i-th observation is defined as
+
+
+when AIC  lower AIC score is better.
+
+ri=yi−f\^(xi)
+
+#A better model has smaller residual deviance and AIC.
+
+# model A
+
+#Residual deviance: 7558.0 on 4612 degrees of freedom #AIC: 85079
+
+#model B #Residual deviance: 7488.7 on 4596 degrees of freedom #AIC: 85055
+
+```{r}
+# checking model
+summary(multinom_model)
+```
+
+#The residual deviance tells us how well the response variable can be predicted by a model with p predictor variables. The lower the value, the better the model is able to predict the value of the response variable
+
+#The Akaike information criterion (AIC) is a mathematical method for evaluating how well a model fits the data it was generated from. In statistics, AIC is used to compare different possible models and determine which one is the best fit for the data.
+
+#In plain words, AIC is a single number score that can be used to determine which of multiple models is most likely to be the best model for a given dataset. It estimates models relatively, meaning that AIC scores are only useful in comparison with other AIC scores for the same dataset. A lower AIC score is better.
+##Manakah kode pada pilihan jawaban berikut yang dapat digunakan untuk memilih data di atas dengan Jenis Kelamin 'Lak-laki' dan dan Pekerjaan 'Dosen'?
+
+#JAWABAN
+
+#A. subset(dataframe_01,Jenis Kelamin == "Laki-laki" & Pekerjaan == "Dosen")
+#B. filter(dataframe_01, Jenis Kelamin=="Laki-laki" , Pekerjaan=="Dosen") 
+#C. Hanya A saja D. A dan B benar
+(A,B, SETDIF)
+
+```{r}
+# converting the coefficients to odds by taking the exponential of the coefficients
+
+exp(coef(multinom_model))
+```
+
+```{r}
+head(round(fitted(multinom_model), 3))
+
+#fitted is a generic function which extracts fitted values from objects returned by modeling functions. fitted.values is an alias for it.
+#The fitted function returns the y-hat values associated with the data used to fit the model
+```
+
+```{r}
+# predicting the values for train dataset
+train2$ClassPredicted = predict(multinom_model, newdata = train2, "class")
+
+train_prob = predict(multinom_model, newdata = train2, "probs")
+
+df = train_prob
+df$max = apply(df,1,max)
+```
+
+
+
+```{r}
+train2$score = df$max
+test_prob = predict(multinom_model, newdata = test, "probs")
+df2 = test_prob
+df2$max = apply(df2,1,max)
+```
+
+```{r}
+# Building classification table
+tab_train = table(train2$REKOMENDASI_TINDAK_LANJUT, train2$ClassPredicted)
+round((sum(diag(tab_train))/sum(tab_train))*100,2)
+
+#diag() function in R Language is used to construct a diagonal matrix. Parameters: x: value present as the diagonal elements. nrow, ncol: number of rows and columns in which elements are represented. 
+```
+
+```{r}
+test$ClassPredicted = predict(multinom_model, newdata = test, "class")
+test$score = df2$max
+tab_test = table(test$REKOMENDASI_TINDAK_LANJUT, test$ClassPredicted)
+round((sum(diag(tab_test))/sum(tab_test))*100)
+```
+
+Akurasi model untuk training dan testing sudah cukup baik untuk diaplikasikan sebesar 71.00%
