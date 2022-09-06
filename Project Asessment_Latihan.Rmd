@@ -1,0 +1,305 @@
+---
+title: "Project Asessment Using R"
+author: "Shella Pandiangan"
+date: "2022-08-30"
+output: html_document
+---
+
+
+#Membuat Data Frame
+
+Bagaimana Memunculkan
+4,5,6
+1
+6
+```{r}
+df <- data.frame(a = c(1, 2, 3), b = c(4, 5, 6), c = c(7, 8, 9))
+df...
+df...
+df...
+```
+Baris pertama adalah perintah untuk membuat dataframe dengan variabel df. 
+Output yang dihasilkan dari perintah baris kedua adalah untuk menampilkan data frame pada kolom kedua, yaitu 4, 5, dan 6; 
+baris ketiga menampilkan data frame pada baris 1 dan kolom 1, yaitu 1; 
+dan baris keempat untuk menampilkan data frame pada baris 3 dan kolom 2, yaitu 6. 
+
+
+
+
+
+Bagaimana Memunculkan "blue" "yellow" "orange"
+```{r}
+x <- c("red","blue","yellow","orange","green","purple")
+y <- x.....
+y
+```
+Pada variabel x,
+ terdapat beberapa data bertipe string dari “red” hingga “purple”.
+ Variabel y akan menampilkan hasil “blue”, “yellow”, dan “orange”
+ 
+ 
+Output yang diharapkan :
+grape apples pear cherry mango panda
+levels : apples cherry frape mango panda pear
+
+lalu output 2 : grape apples pear cherry mango apples
+
+levels: apples cherry grape mango panda pear
+
+```{r}
+x <- .......
+x
+x... <- ....
+x
+```
+
+
+Menggunakan rumus untuk function
+
+```{r}
+add_numbers <- function(x,y){x+y}
+add_numbers(3,3)
+```
+
+
+
+Mengganti Missing Value
+
+Jika ada missing value, maka treatment yang dapat dilakukan adalah menggantinya, menghapus atau membiarkannya tergantung dengan business nya.
+```{r}
+df <- c(1,2,3,4,5,6,NA,7,8,9,NA)
+df
+mean_replace <- ....
+df <- mean_replace(df)
+df
+```
+
+
+Problem 1 : Langkah Awal
+
+Sebagai seorang data scientist di suatu organisasi lingkungan hidup, Anda diminta untuk melakukan analisa terhadap data hasil observasi dari beberapa pohon cherry. 
+
+Dataset hasil observasi disimpan di link file “https://storage.googleapis.com/dqlab-dataset/trees.csv”, dan proses analisa dilakukan dengan R programming. Adapun tahap – tahap yang perlu dilakukan adalah sebagai berikut :
+
+Load library dan load dataset dengan nama “trees_df”, adapun library yang diperlukan yaitu readr
+
+```{r}
+install.packages('readr', dependencies = TRUE, repos='http://cran.rstudio.com/')
+
+
+```
+```{r}
+library(readr)
+trees_df <- read_csv("https://storage.googleapis.com/dqlab-dataset/trees.csv")
+
+```
+
+Mengecek Struktur Data
+
+1.Menampilkan nama kolom dan tipe data setiap kolom.
+2.Terdapat kesalahan penulisan untuk kolom Girth, seharusnya nama kolom tersebut adalah Diameter.
+3.Satuan dari kolom Girth/ Diameter adalah inch, seharusnya adalah ft,sehingga perlu ditambahkan kolom (diameter_ft) yang berisi hasil konversi inch – ft ( 1 inch = 0.08333 ft).
+4.Memunculkan beberapa baris dari dataset.
+5.Menampilkan hasil statistik deskriptif (min, max, median, mean, dan quartil) untuk semua kolom.
+6.Mengecek missing value.
+
+```{r}
+names(trees_df)
+str(trees_df)
+```
+
+```{r}
+
+names(trees_df)[1] <- "Diameter"
+
+```
+
+```{r}
+trees_df$diameter_ft <- trees_df$Diameter*0.08333
+
+```
+
+```{r}
+head(trees_df)
+
+```
+
+```{r}
+summary(trees_df)
+
+```
+
+```{r}
+is.na(trees_df)
+```
+
+
+Shapiro Test
+
+Apakah data hasil observasi ketiga variabel (diameter_ft, Height, Volume) terdistribusi normal? Gunakan Shapiro-Wilk’s method untuk mengevaluasi normality dari setiap variabel.  
+
+
+```{r}
+shapiro.test(trees_df$diameter_ft)
+shapiro.test(trees_df$Height)
+shapiro.test(trees_df$Volume)
+
+
+```
+
+Visualisasi Sederhana
+
+
+Buatlah visualisasi sederhana yang menjelaskan distribusi Volume dari dataset yang sudah dikerjakan sebelumnya. 
+
+Untuk menyelesaikan soal ini, diminta untuk menggunakan density plot dari standar R-base.
+```{r}
+plot(density(trees_df$Volume))
+
+```
+
+Mencari Hubungan
+Bagaimanakah hubungan antara Volume batang pohon Cherry dengan diameter dan ketinggian (height)?
+
+Gunakan pula visualisasi sederhana untuk menjelaskan hubungan tersebut.
+
+```{r}
+lm(formula = Volume~Height+diameter_ft, data = trees_df)
+plot(trees_df$diameter_ft, trees_df$Volume)
+plot(trees_df$Height,trees_df$Volume)
+```
+
+Problem 2
+
+Analisa Efek Pemberian Obat Tidur
+
+Selanjutnya, kamu diminta untuk menganalisa efek pemberian obat tidur terhadap peningkatan lamanya waktu tidur dari sekelompok mahasiswa. Berikut preview dari observasi tersebut :
+
+Extra = peningkatan waktu tidur dalam satuan jam (hour) – numeric
+
+Group = jenis treatment/dosis obat yang diberikan – factor
+
+ID = ID mahasiswa yang diobservasi – factor
+
+ 
+
+Jika diasumsikan data hasil observasi tersebut terdistribusi normal, lakukanlah uji hipotesis untuk mengetahui apakah terdapat perbedaan efek antara group 1 dan group 2.
+
+    H0 = Tidak ada perbedaan efek antara group 1 dan group 2
+    H1 = Terdapat perbedaan efek group 1 dan group 2
+
+Cara 1 :
+
+# Load library & datasetinstall.packages("tidyverse") #install in backendlibrary(readr) #pre-definedlibrary(dplyr) #pre-defined sleep_df <- read_csv('https://storage.googleapis.com/dqlab-dataset/sleep.csv') #pre-defined # Save the data in two different dataframe/vectorgroup1 <- filter(sleep_df, sleep_df$group == 1)group2 <- filter(sleep_df, sleep_df$group == 2) # Compute t-testt_test <- t.test(group1$extra, group2$extra)t_test 
+
+Cara 2 :
+
+             # Load library & dataset
+
+install.packages("tidyverse")library(readr) #pre-defined sleep_df <- read_csv('sleep.csv') #pre-defined # Directly compute t-test without save it in 2 different dataframe/vectort_test <- t.test(extra ~ group, data = sleep_df)t_test
+
+```{r}
+library(readr) #pre-defined
+library(dplyr) #pre-defined
+
+sleep_df <- read_csv('https://storage.googleapis.com/dqlab-dataset/sleep.csv') #pre-defined
+
+# Save the data in two different dataframe/vector
+group1 <- ___(___, ___$___ == 1)
+group2 <- ___(___, ___$___ == 2)
+
+# Compute t-test
+t_test <- ___(___$___, ___$___)
+t_test
+```
+
+membuat Boxplot
+```{r}
+library(ggplot2)
+ggplot(___, ___(___, ___, ___)) + geom_boxplot()
+
+```
+
+
+MACHINE LEARNING WITH R
+
+Membuat Model Sederhana
+
+Dataset https://storage.googleapis.com/dqlab-dataset/electric_bill.csv berikut menyajikan informasi terkait biaya listrik rumah tangga di suatu negara.
+
+Dari data tersebut anda ingin mengetahui faktor – faktor apa saja yang mempengaruhi total biaya listrik di setiap rumah tangga.
+
+Buatlah model sederhana yang dapat menjelaskan bagaimana pengaruh "num_people" dan "housearea" terhadap "amount_paid"!
+```{r}
+library(readr)
+electric_bill <- read_csv("https://storage.googleapis.com/dqlab-dataset/electric_bill.csv")
+model <- ___
+
+model
+```
+
+Training dan Testing
+
+Dalam membuat model machine learning, dataset perlu dibagi ke dalam Training dan Testing set. Salah satu library yang digunakan adalah caret. Dengan menggunakan Iris dataset yang sudah di-load dan library caret, buatlah syntax untuk membagi dataset tersebut ke dalam training set (80%) dan testing dataset (20%)!
+```{r}
+library(readr)
+library(caret)
+set.seed(123)
+iris <- read_csv("https://storage.googleapis.com/dqlab-dataset/iris.csv")
+
+trainIndex <- ___
+training_set <- ___
+testing_set <- ___
+
+dim(___)
+dim(___)
+```
+
+
+Model Decision Tree
+
+Dataset https://storage.googleapis.com/dqlab-dataset/suv_data.csv berikut menyajikan informasi terkait profil customer yang pernah membeli mobil keluaran terbaru.
+
+Dataset ini perlu dibagi ke dalam training set dan testing set, dan buatlah machine learning model dengan menggunakan Decision tree untuk memprediksi customer yang tertarik membeli mobil keluaran terbaru, serta evaluasi performance dari kedua model tersebut.
+```{r}
+
+
+library(caret) #pre-defined 
+library(rpart) #pre-defined
+library(readr) #pre-defined
+set.seed(123)  #pre-defined
+
+suv_data <- read_csv("https://storage.googleapis.com/dqlab-dataset/suv_data.csv") #pre-defined
+
+#split data to training & testing set
+trainIndex <- createDataPartition(suv_data$Purchased, p = 0.8, list = FALSE)
+training_set <- suv_data[trainIndex, ]
+testing_set <- suv_data[-trainIndex,]
+
+
+#build model with decision tree
+model_dt <- rpart(Purchased ~ ., data = training_set, method="class")
+predictions_dt <- predict(model_dt, newdata = testing_set, type = "class")
+
+
+#evaluate performance with new data/ testing_set
+testing_purchased <- factor(testing_set$Purchased) #pre-defined 
+
+#show the evaluation result 
+evaluation_result <- confusionMatrix(predictions_dt, testing_purchased)
+evaluation_result
+
+```
+
+Selamat untuk kamu ! 
+
+
+Tidak mudah untuk menyelesaikan suatu project data, tapi kamu sudah berhasil menyelesaikan "Project Assessment with R" ini dengan sangat baik. Jangan mudah menyerah. Selalu asah kemampuan datamu, banyak berlatih, dan bangun portfolio kamu sebanyak-banyaknya. 
+
+Tidak lupa pula upload sertifikat yang kamu dapatkan dari DQLab agar banyak perusahaan yang melirikmu. Persiapkan dirimu dengan baik, agar siap terjun berkarir di bidang data. Jadilah salah satu talenta data yang dibutuhkan industri. 
+
+Belajar data science bukan proses semalam. Pelajari hal-hal baru tentang data, terapkan ilmu data science yang kamu dapatkan, dan berbagi dengan teman-teman lainnya, dengan begitu kamu akan semakin kaya ilmu. 
+
+Terus #SemangatBelajarData bersama DQLab, karena akan selalu ada modul-modul dan program-program baru yang dipersiapkan DQLab untuk kamu. 
+
+Raih kesempatanmu sekarang, jadilah talenta data yang dibutuhkan industri.  
